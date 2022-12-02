@@ -59,7 +59,8 @@ Following the Elf's instructions for the second column, what would your total sc
 */
 
 #![allow(dead_code)]
-use std::collections::HashMap;
+#![allow(unused_variables)]
+use std::{collections::HashMap};
 
 fn main(){
     //part_1_main();
@@ -127,6 +128,78 @@ fn populate_hashmap(points: &mut HashMap<String, i32> ){
     points.insert("0".to_string(), 3); // draw
 }
 
-fn part_2_main() {
+/*
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
+*/
 
+fn part_2_main() {
+    let mut points_hashmap: HashMap<char, i32> = HashMap::new();
+    let mut win_hashmap: HashMap<char, char> = HashMap::new();
+    let mut lose_hashmap: HashMap<char, char> = HashMap::new();
+    let mut draw_hashmap: HashMap<char, char> = HashMap::new();
+    let mut outcomes_hashmap: HashMap<i32, i32> = HashMap::new();
+    let mut desired_outcomes_hashmap: HashMap<char, &HashMap<char, char>> = HashMap::new();
+
+    p2_populate_points_hashmap(&mut points_hashmap);
+    p2_populate_win_hashmap(&mut win_hashmap);
+    p2_populate_lose_hashmap(&mut lose_hashmap);
+    p2_populate_draw_hashmap(&mut draw_hashmap);
+    p2_populate_outcomes_hashmap(&mut outcomes_hashmap);
+    p2_populate_desired_outcomes_hashmap(&mut desired_outcomes_hashmap, &mut win_hashmap, &mut lose_hashmap, &mut draw_hashmap);
+
+    println!("{:?}", desired_outcomes_hashmap);
+    println!("{:?}", desired_outcomes_hashmap[&'Z'][&'B']);
+
+    let input = include_str!("../input.txt");
+
+    for line in input.split("\n"){
+        if line.is_empty(){
+            continue;
+        }
+        let line_as_bytes = line.as_bytes();
+        let opponent_move = line_as_bytes[0] as char; 
+        let desired_outcome = line_as_bytes[2] as char;
+    }
+    
+}
+
+fn p2_populate_points_hashmap(map: &mut HashMap<char, i32>){
+    map.insert('D', 1); // Rock
+    map.insert('E', 2); // Paper
+    map.insert('F', 3); // Scissors
+}
+
+fn p2_populate_win_hashmap(map: &mut HashMap<char, char>){
+    map.insert('A', 'E');
+    map.insert('B', 'F');
+    map.insert('C', 'D');
+}
+
+fn p2_populate_lose_hashmap(map: &mut HashMap<char, char>){
+    map.insert('A', 'F');
+    map.insert('B', 'D');
+    map.insert('C', 'E');
+}
+
+fn p2_populate_draw_hashmap(map: &mut HashMap<char, char>){
+    map.insert('A', 'D');
+    map.insert('B', 'E');
+    map.insert('C', 'F');
+}
+
+fn p2_populate_outcomes_hashmap(map: &mut HashMap<i32, i32>){
+    map.insert(1, 6);
+    map.insert(2, 0);
+    map.insert(0, 3);
+}
+
+fn p2_populate_desired_outcomes_hashmap<'a>(map: &mut HashMap<char, &'a HashMap<char, char>>,
+                                        win: &'a mut HashMap<char, char>,
+                                        lose: &'a mut HashMap<char, char>,
+                                        draw: &'a mut HashMap<char, char>){
+    map.insert('X', win);
+    map.insert('Y', lose);
+    map.insert('Z', draw);
 }
