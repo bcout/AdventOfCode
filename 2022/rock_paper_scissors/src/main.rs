@@ -139,7 +139,7 @@ fn part_2_main() {
     let mut win_hashmap: HashMap<char, char> = HashMap::new();
     let mut lose_hashmap: HashMap<char, char> = HashMap::new();
     let mut draw_hashmap: HashMap<char, char> = HashMap::new();
-    let mut outcomes_hashmap: HashMap<i32, i32> = HashMap::new();
+    let mut outcomes_hashmap: HashMap<char, i32> = HashMap::new();
     let mut desired_outcomes_hashmap: HashMap<char, &HashMap<char, char>> = HashMap::new();
 
     p2_populate_points_hashmap(&mut points_hashmap);
@@ -149,9 +149,10 @@ fn part_2_main() {
     p2_populate_outcomes_hashmap(&mut outcomes_hashmap);
     p2_populate_desired_outcomes_hashmap(&mut desired_outcomes_hashmap, &mut win_hashmap, &mut lose_hashmap, &mut draw_hashmap);
 
-    println!("{:?}", desired_outcomes_hashmap);
-    println!("{:?}", desired_outcomes_hashmap[&'Z'][&'B']);
+    // println!("{:?}", desired_outcomes_hashmap);
+    // println!("{:?}", desired_outcomes_hashmap[&'Z'][&'B']); // this gives us what move to play to draw if the opponent plays B
 
+    let mut total_points = 0;
     let input = include_str!("../input.txt");
 
     for line in input.split("\n"){
@@ -161,7 +162,11 @@ fn part_2_main() {
         let line_as_bytes = line.as_bytes();
         let opponent_move = line_as_bytes[0] as char; 
         let desired_outcome = line_as_bytes[2] as char;
+        let move_to_make = desired_outcomes_hashmap[&desired_outcome][&opponent_move];
+        total_points = total_points + points_hashmap[&move_to_make] + outcomes_hashmap[&desired_outcome];
     }
+
+    println!("{total_points}");
     
 }
 
@@ -189,17 +194,17 @@ fn p2_populate_draw_hashmap(map: &mut HashMap<char, char>){
     map.insert('C', 'F');
 }
 
-fn p2_populate_outcomes_hashmap(map: &mut HashMap<i32, i32>){
-    map.insert(1, 6);
-    map.insert(2, 0);
-    map.insert(0, 3);
+fn p2_populate_outcomes_hashmap(map: &mut HashMap<char, i32>){
+    map.insert('Z', 6);
+    map.insert('X', 0);
+    map.insert('Y', 3);
 }
 
 fn p2_populate_desired_outcomes_hashmap<'a>(map: &mut HashMap<char, &'a HashMap<char, char>>,
                                         win: &'a mut HashMap<char, char>,
                                         lose: &'a mut HashMap<char, char>,
                                         draw: &'a mut HashMap<char, char>){
-    map.insert('X', win);
-    map.insert('Y', lose);
-    map.insert('Z', draw);
+    map.insert('Z', win);
+    map.insert('X', lose);
+    map.insert('Y', draw);
 }
