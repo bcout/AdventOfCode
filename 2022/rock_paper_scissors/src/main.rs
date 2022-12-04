@@ -58,6 +58,8 @@ Now that you're correctly decrypting the ultra top secret strategy guide, you wo
 Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
 */
 
+// TWIST: I'm not allowed to use if statements for the game logic
+
 #![allow(dead_code)]
 #![allow(unused_variables)]
 use std::{collections::HashMap};
