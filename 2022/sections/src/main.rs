@@ -95,7 +95,60 @@ fn part_1_main() {
 }  
 
 fn part_2_main() {
+    let re = Regex::new(r"(?P<first_start>\d+)-(?P<first_end>\d+),(?P<second_start>\d+)-(?P<second_end>\d+)")
+        .unwrap();
 
+    let input = include_str!("../input.txt");
+    let mut caps;
+    let mut value = 0;
+
+    for line in input.split("\n"){
+        if line.is_empty(){
+            continue;
+        }
+        caps = re.captures(line)
+            .unwrap();
+        let first_start = *&caps["first_start"]
+            .parse::<i32>()
+            .unwrap();
+        let first_end = *&caps["first_end"]
+            .parse::<i32>()
+            .unwrap();
+        let second_start = *&caps["second_start"]
+            .parse::<i32>()
+            .unwrap();
+        let second_end = *&caps["second_end"]
+            .parse::<i32>()
+            .unwrap();
+
+        let mut set: HashSet<i32> = HashSet::new();
+        let mut i = first_start;
+        while i <= first_end {
+            set.insert(i);
+            //print!("{i}");
+            i = i + 1;
+        }
+
+        //print!(" | ");
+
+        i = second_start;
+        while i <= second_end {
+            //print!("{i}");
+            //println!("{:?} | {}", set, i);
+            
+            if set.contains(&i) {
+                println!("{}-{} overlaps {}-{}", first_start, first_end, second_start, second_end);
+                value = value + 1;
+                break;
+            }
+            
+            i = i + 1;
+        }
+
+        //println!("");
+    }
+
+    println!("{value}");
 }
 
 fn main() {
