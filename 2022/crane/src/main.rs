@@ -255,9 +255,6 @@ fn part_2_main() {
     // Follow instructions
     // The only difference here is that we need to store the crates in an intermediary stack, reverse that stack, then push each element 
     // onto the destination. This has the same effect as moving the chunk of crates at the same time.
-    let mut quantity: i32;
-    let mut source: i32;
-    let mut destination: i32;
     let re = Regex::new(r"\w+ (?P<quantity>\d+) \w+ (?P<source>\d+) \w+ (?P<destination>\d+)").unwrap();
     let mut caps;
     for instruction in instructions_lines {
