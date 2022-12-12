@@ -28,7 +28,7 @@ Combined RegEx with stacks.
 
 ## Day 6: Start of Packet
 
-Read characters in a string in chunks, instead of letter-by-letter.
+Read subsets of characters in a string, instead of just going letter-by-letter from beginning to end. For instance, you'd read characters 0-3, then 1-4, then 2-5, etc.
 
 ## Day 8: Tree House
 
