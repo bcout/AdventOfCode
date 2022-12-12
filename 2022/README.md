@@ -25,3 +25,12 @@ Learned how to use RegEx in Rust.
 ## Day 5: Crane
 
 Combined RegEx with stacks.
+
+## Day 6: Start of Packet
+
+Read characters in a string in chunks, instead of letter-by-letter.
+
+## Day 8: Tree House
+
+Learned how to use 2D vectors to treat data like a matrix.
+
