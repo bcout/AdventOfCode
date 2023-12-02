@@ -56,4 +56,4 @@ valgrind: $(TARGET)
 			--track-origins=yes \
 			--verbose \
 			--log-file=$(DEBUGDIR)/valgrind-out.txt \
-			$(BUILDDIR)/$(TARGET)
+			$(BUILDDIR)/$(TARGET) $(part)
